@@ -151,6 +151,8 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
 
     dict[@"$os_name"] = device.systemName;
     dict[@"$os_version"] = device.systemVersion;
+
+    dict[@"Visit Platform"] = (device.userInterfaceIdiom == UIUserInterfaceIdiomPad) ? @"Tablet iOS" : @"Mobile iOS";
     
 #if TARGET_OS_IOS || TARGET_OS_TV
     NSArray<UIWindow *> *appWindows = [PHGApplicationUtils.sharedInstance windows];
