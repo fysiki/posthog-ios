@@ -18,6 +18,8 @@
 #if TARGET_OS_IOS
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+
+@import LocalizedDeviceModel;
 #endif
 
 NSString *const PHGPostHogDidSendRequestNotification = @"PostHogDidSendRequest";
@@ -145,7 +147,7 @@ static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
     dict[@"$device_type"] = @"ios";
     dict[@"$device_model"] = GetDeviceModel();
     dict[@"$device_id"] = self.configuration.shouldSendDeviceID ? [[device identifierForVendor] UUIDString] : nil;
-    dict[@"$device_name"] = [device model];
+    dict[@"$device_name"] = [device productName];
 
     dict[@"$os_name"] = device.systemName;
     dict[@"$os_version"] = device.systemVersion;
