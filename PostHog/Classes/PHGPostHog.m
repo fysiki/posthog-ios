@@ -86,7 +86,9 @@ static PHGPostHog *__sharedInstance = nil;
         }
 #endif
         
-        [self reloadFeatureFlags];
+        if (configuration.preloadFeatureFlags) {
+            [self reloadFeatureFlags];
+        }
     }
     return self;
 }
@@ -313,8 +315,18 @@ NSString *const PHGBuildKeyV2 = @"PHGBuildKeyV2";
 
 - (bool)isFeatureEnabled:(NSString *)flagKey options:(NSDictionary *)options
 {
-    NSArray *keys = [self.payloadManager getFeatureFlags];
-    BOOL isFlagEnabled = [keys containsObject: flagKey];
+    NSDictionary *flags = [self.payloadManager getFlagVariants];
+
+    bool isFlagEnabled = true;
+    id value = [flags valueForKey:flagKey];
+    
+    if (value != nil) {
+        if ([value isKindOfClass:[NSNumber class]]) {
+            isFlagEnabled = [value boolValue];
+        }
+    } else {
+        isFlagEnabled = false;
+    }
     
     id send_event = [options valueForKey:@"send_event"];
     
@@ -550,7 +562,7 @@ NSString *const PHGBuildKeyV2 = @"PHGBuildKeyV2";
 {
     // this has to match the actual version, NOT what's in info.plist
     // because Apple only accepts X.X.X as versions in the review process.
-    return @"2.0.3";
+    return @"2.1.0";
 }
 
 #pragma mark - Helpers

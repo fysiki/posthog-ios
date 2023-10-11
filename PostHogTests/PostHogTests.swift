@@ -4,7 +4,7 @@ import PostHog
 
 class PostHogTests: QuickSpec {
   override func spec() {
-    let config = PHGPostHogConfiguration(apiKey: "QUI5ydwIGeFFTa1IvCBUhxL9PyW5B0jE")
+    let config = PHGPostHogConfiguration(apiKey: "foobar")
     var posthog: PHGPostHog!
     var testMiddleware: TestMiddleware!
     var testApplication: TestApplication!
@@ -15,6 +15,7 @@ class PostHogTests: QuickSpec {
       testApplication = TestApplication()
       config.application = testApplication
       config.captureApplicationLifecycleEvents = true
+      config.preloadFeatureFlags = true
 
       UserDefaults.standard.set("test PHGQueue should be removed", forKey: "PHGQueue")
       expect(UserDefaults.standard.string(forKey: "PHGQueue")).toNot(beNil())
@@ -30,7 +31,7 @@ class PostHogTests: QuickSpec {
       expect(posthog.configuration.flushAt) == 20
       expect(posthog.configuration.flushInterval) == 30
       expect(posthog.configuration.maxQueueSize) == 1000
-      expect(posthog.configuration.apiKey) == "QUI5ydwIGeFFTa1IvCBUhxL9PyW5B0jE"
+      expect(posthog.configuration.apiKey) == "foobar"
       expect(posthog.configuration.host) == URL(string: "https://app.posthog.com")
       expect(posthog.configuration.shouldUseLocationServices) == false
       expect(posthog.configuration.shouldUseBluetooth) == false
@@ -40,8 +41,21 @@ class PostHogTests: QuickSpec {
       expect(posthog.getAnonymousId()).toNot(beNil())
     }
 
+    it("loads feature flags on init") {
+      expect(testMiddleware.lastContext?.eventType) == .reloadFeatureFlags
+    }
+
+    it("doesn't load feature flags on init when configured") {
+      config.preloadFeatureFlags = false
+      testMiddleware = TestMiddleware()
+      config.middlewares = [testMiddleware]
+
+      posthog = PHGPostHog(configuration: config)
+      expect(testMiddleware.lastContext).to(beNil())
+    }
+
     it("initialized correctly with api host") {
-      let config = PHGPostHogConfiguration(apiKey: "QUI5ydwIGeFFTa1IvCBUhxL9PyW5B0jE", host: "https://testapp.posthog.test")
+      let config = PHGPostHogConfiguration(apiKey: "foobar", host: "https://testapp.posthog.test")
       config.libraryName = "posthog-ios-test"
       config.libraryVersion = "posthog-ios-version"
       
@@ -49,7 +63,7 @@ class PostHogTests: QuickSpec {
       expect(posthog.configuration.flushAt) == 20
       expect(posthog.configuration.flushInterval) == 30
       expect(posthog.configuration.maxQueueSize) == 1000
-      expect(posthog.configuration.apiKey) == "QUI5ydwIGeFFTa1IvCBUhxL9PyW5B0jE"
+      expect(posthog.configuration.apiKey) == "foobar"
       expect(posthog.configuration.host) == URL(string: "https://testapp.posthog.test")
       expect(posthog.configuration.shouldUseLocationServices) == false
       expect(posthog.configuration.shouldUseBluetooth) == false
@@ -105,14 +119,14 @@ class PostHogTests: QuickSpec {
     
     it("fires Application Backgrounded during UIApplicationDidEnterBackground") {
       testMiddleware.swallowEvent = true
-      NotificationCenter.default.post(name: Notification.Name.UIApplicationDidEnterBackground, object: testApplication)
+      NotificationCenter.default.post(name: NSNotification.Name.UIApplicationDidEnterBackground, object: testApplication)
       let event = testMiddleware.lastContext?.payload as? PHGCapturePayload
       expect(event?.event) == "Application Backgrounded"
     }
 
     it("flushes when UIApplicationDidEnterBackground is fired") {
       posthog.capture("test")
-      NotificationCenter.default.post(name: Notification.Name.UIApplicationDidEnterBackground, object: testApplication)
+      NotificationCenter.default.post(name: NSNotification.Name.UIApplicationDidEnterBackground, object: testApplication)
       expect(testApplication.backgroundTasks.count).toEventually(equal(1))
       expect(testApplication.backgroundTasks[0].isEnded).toEventually(beFalse())
     }
