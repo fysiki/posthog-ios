@@ -48,6 +48,8 @@ class PostHogContext {
             properties["$os_name"] = device.systemName
             properties["$os_version"] = device.systemVersion
 
+            properties["Visit Platform"] = (device.userInterfaceIdiom == .pad) ? "Tablet iOS" : "Mobile iOS";
+
             var deviceType: String?
             switch device.userInterfaceIdiom {
             case UIUserInterfaceIdiom.phone:
