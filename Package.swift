@@ -26,7 +26,10 @@ let package = Package(
         .target(
             name: "PostHog",
             dependencies: ["LocalizedDeviceModel"],
-            path: "PostHog"
+            path: "PostHog",
+            resources: [
+                .copy("Resources/PrivacyInfo.xcprivacy"),
+            ]
         ),
         .testTarget(
             name: "PostHogTests",

@@ -1,5 +1,22 @@
 ## Next
 
+## 3.2.2 - 2024-03-01
+
+- API requests do a 10s timeoutInterval instead of 60s  [#113](https://github.com/PostHog/posthog-ios/pull/113)
+
+## 3.2.1 - 2024-02-26
+
+- PrivacyInfo manifest set in the SPM and CocoaPods config  [#112](https://github.com/PostHog/posthog-ios/pull/112)
+
+## 3.2.0 - 2024-02-23
+
+- read `$app_name` from `CFBundleDisplayName` as a fallback if `CFBundleName` isn't available [#108](https://github.com/PostHog/posthog-ios/pull/108)
+- add PrivacyInfo manifest [#110](https://github.com/PostHog/posthog-ios/pull/110)
+
+## 3.1.4 - 2024-02-19
+
+- fix reset session when reset or close are called [#107](https://github.com/PostHog/posthog-ios/pull/107)
+
 ## 3.1.3 - 2024-02-09
 
 - fix ISO8601 formatter to always use the 24h format [#106](https://github.com/PostHog/posthog-ios/pull/106)
