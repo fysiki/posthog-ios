@@ -1,5 +1,27 @@
 ## Next
 
+## 3.4.0 - 2024-05-23
+
+- allow anonymous id generation to be configurable ([#133](https://github.com/PostHog/posthog-ios/pull/133))
+- fix: PrivacyInfo warning when using Cocoapods ([#138](https://github.com/PostHog/posthog-ios/pull/138))
+
+## 3.3.0 - 2024-05-21
+
+- chore: apply patches from 3.2.5 to 3.3.0 and session recording fixes [#135](https://github.com/PostHog/posthog-ios/pull/135)
+  - iOS session recording is still experimental
+
+## 3.2.5 - 2024-05-14
+
+- fix: `reset` deletes only sdk files instead of the whole folder [#132](https://github.com/PostHog/posthog-ios/pull/132)
+
+## 3.3.0-alpha.2 - 2024-04-16
+
+- chore: silence `shared` warning for strict concurrency [#129](https://github.com/PostHog/posthog-ios/pull/129)
+
+## 3.3.0-alpha.1 - 2024-03-27
+
+- iOS session recording - very first alpha release [#115](https://github.com/PostHog/posthog-ios/pull/115)
+
 ## 3.2.4 - 2024-03-12
 
 - `maxQueueSize` wasn't respected when capturing events [#116](https://github.com/PostHog/posthog-ios/pull/116)
