@@ -1,5 +1,15 @@
 ## Next
 
+## 3.5.1 - 2024-06-12
+
+- recording: fix `screenshotMode` typo ([#143](https://github.com/PostHog/posthog-android/pull/143))
+
+## 3.5.0 - 2024-06-11
+
+- chore: change host to new address ([#139](https://github.com/PostHog/posthog-ios/pull/139))
+- fix: rename groupProperties to groups for capture methods ([#140](https://github.com/PostHog/posthog-ios/pull/140))
+- recording: add `screenshotMode` option for session replay instead of wireframe ([#142](https://github.com/PostHog/posthog-android/pull/142))
+
 ## 3.4.0 - 2024-05-23
 
 - allow anonymous id generation to be configurable ([#133](https://github.com/PostHog/posthog-ios/pull/133))
