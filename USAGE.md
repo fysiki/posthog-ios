@@ -202,7 +202,7 @@ If any of the breaking changes are blocking you, please [open an issue](https://
 
 Enable `Record user sessions` on the [PostHog project settings](https://us.posthog.com/settings/project-replay#replay).
 
-Requires the iOS SDK version >= [3.5.1](https://github.com/PostHog/posthog-ios/releases/).
+Requires the iOS SDK version >= [3.6.1](https://github.com/PostHog/posthog-ios/releases/).
 
 Enable the SDK to capture Session Recording.
 
@@ -219,7 +219,7 @@ config.sessionReplayConfig.captureNetworkTelemetry = true
 config.sessionReplayConfig.screenshotMode = true
 ```
 
-If you don't want to mask everything, you can disable the mask config above and mask specific views using the `ph-no-capture` [accessibilityIdentifier](https://developer.apple.com/documentation/uikit/uiaccessibilityidentification/1623132-accessibilityidentifier).
+If you don't want to mask everything, you can disable the mask config above and mask specific views using the `ph-no-capture` [accessibilityIdentifier](https://developer.apple.com/documentation/uikit/uiaccessibilityidentification/1623132-accessibilityidentifier) or [accessibilityLabel](https://developer.apple.com/documentation/uikit/uiaccessibilityelement/1619577-accessibilitylabel).
 
 ### Limitations
 
