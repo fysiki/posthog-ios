@@ -1,5 +1,17 @@
 ## Next
 
+## 3.7.0 - 2024-08-07
+
+- chore: Support the `propertiesSanitizer` config ([#154](https://github.com/PostHog/posthog-ios/pull/154))
+
+## 3.6.3 - 2024-07-26
+
+- recording: fix: respect session replay project settings from app start ([#150](https://github.com/PostHog/posthog-ios/pull/150))
+
+## 3.6.2 - 2024-07-25
+
+- recording: fix MTLTextureDescriptor has width of zero issue ([#149](https://github.com/PostHog/posthog-ios/pull/149))
+
 ## 3.6.1 - 2024-06-26
 
 - recording: improvements to screenshot masking ([#147](https://github.com/PostHog/posthog-ios/pull/147))
